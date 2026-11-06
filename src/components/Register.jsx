@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { registerAccount } from '../authApi';
 
 export default function Register({ onSwitchToLogin }) {
   const [formData, setFormData] = useState({
@@ -6,6 +7,8 @@ export default function Register({ onSwitchToLogin }) {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,62 +17,76 @@ export default function Register({ onSwitchToLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError('');
+    setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:8080/api/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        alert('User registered successfully!');
-      } else {
-        alert('Registration failed!');
-      }
-    } catch (error) {
-      console.error('Error connecting to backend:', error);
-      alert('Cannot connect to Spring Boot server.');
+      await registerAccount(formData);
+      onSwitchToLogin('Account created. Sign in to continue.');
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: '350px', margin: '2rem auto', textAlign: 'center' }}>
-      <h2>Register Account</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <input 
-          type="text" 
-          name="name" 
-          placeholder="Full Name" 
-          value={formData.name} 
-          onChange={handleChange} 
-          required 
-        />
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Email Address" 
-          value={formData.email} 
-          onChange={handleChange} 
-          required 
-        />
-        <input 
-          type="password" 
-          name="password" 
-          placeholder="Password" 
-          value={formData.password} 
-          onChange={handleChange} 
-          required 
-        />
-        <button type="submit">Sign Up</button>
+    <main className="auth-panel">
+      <div className="brand"><span className="brand-mark">T</span> Test Account</div>
+      <h1 className="auth-heading">Create your account</h1>
+      <p className="auth-description">Enter your details to get started.</p>
+      {error && <p className="form-message form-message-error" role="alert">{error}</p>}
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="form-field">
+          <label htmlFor="register-name">Full name</label>
+          <input
+            id="register-name"
+            type="text"
+            name="name"
+            autoComplete="name"
+            placeholder="Your name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-field">
+          <label htmlFor="register-email">Email address</label>
+          <input
+            id="register-email"
+            type="email"
+            name="email"
+            autoComplete="email"
+            placeholder="name@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-field">
+          <label htmlFor="register-password">Password</label>
+          <input
+            id="register-password"
+            type="password"
+            name="password"
+            autoComplete="new-password"
+            minLength={8}
+            maxLength={72}
+            placeholder="Create a password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button className="auth-submit" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Creating account...' : 'Create account'}
+        </button>
       </form>
-      <p style={{ marginTop: '1rem' }}>
+      <p className="auth-switch-row">
         Already have an account?{' '}
-        <button type="button" onClick={onSwitchToLogin} style={{ background: 'none', border: 'none', color: '#646cff', cursor: 'pointer', textDecoration: 'underline' }}>
-          Login here
+        <button className="auth-switch" type="button" onClick={() => onSwitchToLogin()}>
+          Sign in
         </button>
       </p>
-    </div>
+    </main>
   );
 }

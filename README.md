@@ -21,8 +21,10 @@ This repository contains the full-stack implementation of our CSIT340 group proj
 ---
 
 ## Features Implemented
-- **User Authentication:** Registration, Login, and Forgot Password UI components
-- **Full-Stack Data Flow:** Registration form posts directly to Spring Boot backend API
+- **User Authentication:** Registration, login, session restore, and logout
+- **Password Security:** BCrypt password hashing, plus one-time upgrade of existing plaintext passwords after a successful login
+- **Password Reset:** Single-use, 30-minute reset links sent by email; only token hashes are stored
+- **Full-Stack Data Flow:** Authentication forms use the Spring Boot API with an HTTP-only session cookie
 - **Persistence:** User records automatically stored in MySQL database
 - **CORS Configuration:** Configured cross-origin resource sharing between client and server
 
@@ -37,10 +39,17 @@ This repository contains the full-stack implementation of our CSIT340 group proj
 ### 2. Backend Setup (Spring Boot)
 1. Open the project in **IntelliJ IDEA**.
 2. Configure your local database credentials in `src/main/resources/application.properties`.
-3. Run the main application file (`AppApplication.java`) to start the backend service.
+3. Configure SMTP environment variables so password reset messages can be sent:
+   - `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, and `MAIL_PASSWORD`
+   - `MAIL_FROM` for the sender address
+   - `FRONTEND_URL` for the reset link origin (defaults to `http://localhost:5173`)
+4. Set `COOKIE_SECURE=true` when serving the frontend and backend over HTTPS. Leave it false for local HTTP development.
+5. Run the main application file (`AppApplication.java`) to start the backend service.
 
 ### 3. Frontend Setup (React Vite)
 1. Open the project root in **VS Code** or terminal.
 2. Install project dependencies:
    ```bash
    npm install
+   ```
+3. Set `VITE_API_URL` only when the backend is not available on port `8080` at the frontend's hostname.
