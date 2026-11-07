@@ -1,0 +1,166 @@
+.crud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.crud-header h1 {
+  margin: 0;
+}
+
+.crud-search {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1rem 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #c9d2cf;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.crud-table-wrap {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e1e6e4;
+  border-radius: 0.75rem;
+}
+
+.crud-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.crud-table th,
+.crud-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eef1f0;
+}
+
+.crud-table th {
+  background: #f8faf9;
+  font-size: 0.85rem;
+  color: #4a5753;
+}
+
+.crud-table tr:last-child td {
+  border-bottom: none;
+}
+
+.crud-table .crud-number {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.crud-empty {
+  text-align: center !important;
+  color: #4a5753;
+}
+
+.crud-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  color: #4a5753;
+}
+
+.crud-page-label {
+  margin: 0 0.75rem;
+}
+
+.crud-btn {
+  border: 1px solid #c9d2cf;
+  background: #ffffff;
+  color: #1c2321;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.crud-btn:hover:not(:disabled) {
+  background: #f0f3f2;
+}
+
+.crud-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.crud-btn-primary {
+  background: #1f7a5a;
+  border-color: #1f7a5a;
+  color: #ffffff;
+}
+
+.crud-btn-primary:hover:not(:disabled) {
+  background: #18614a;
+}
+
+.crud-btn-danger {
+  border-color: #b3261e;
+  color: #b3261e;
+}
+
+.crud-btn-danger:hover:not(:disabled) {
+  background: #b3261e;
+  color: #ffffff;
+}
+
+.crud-notice {
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  background: #e4f1ec;
+  color: #1f7a5a;
+}
+
+.crud-error {
+  color: #b3261e;
+}
+
+.crud-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 10;
+}
+
+.crud-modal {
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+}
+
+.crud-modal h2 {
+  margin-top: 0;
+}
+
+.crud-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.crud-field input {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #c9d2cf;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.crud-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

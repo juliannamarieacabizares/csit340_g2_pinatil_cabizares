@@ -55,3 +55,21 @@ export function completePasswordReset(token, password) {
     body: JSON.stringify({ token, password }),
   });
 }
+
+export function adminPing() {
+  return request('/api/admin/ping');
+}
+
+export function listItems({ search = '', page = 0, size = 5 } = {}) {
+  const params = new URLSearchParams({ search, page, size });
+  return request(`/api/items?${params}`);
+}
+export function createItem(item) {
+  return request('/api/items', { method: 'POST', body: JSON.stringify(item) });
+}
+export function updateItem(id, item) {
+  return request(`/api/items/${id}`, { method: 'PUT', body: JSON.stringify(item) });
+}
+export function deleteItem(id) {
+  return request(`/api/items/${id}`, { method: 'DELETE' });
+}
