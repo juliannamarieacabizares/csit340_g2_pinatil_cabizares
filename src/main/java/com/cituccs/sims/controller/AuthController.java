@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private static final String USER_ID_ATTRIBUTE = "authenticatedUserId";
+    private static final String USER_ID_ATTRIBUTE = com.cituccs.sims.config.AuthInterceptor.USER_ID_ATTRIBUTE;
 
     private final AuthService authService;
 

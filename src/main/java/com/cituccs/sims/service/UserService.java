@@ -41,6 +41,6 @@ public class UserService {
     }
 
     public static AuthModels.UserResponse toResponse(User user) {
-        return new AuthModels.UserResponse(user.getId(), user.getName(), user.getEmail());
+        return new AuthModels.UserResponse(user.getId(), user.getName(), user.getEmail(), user.getRole().name());
     }
 }

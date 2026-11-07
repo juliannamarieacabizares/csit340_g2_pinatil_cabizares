@@ -16,6 +16,6 @@ public final class AuthModels {
     public record PasswordUpdateRequest(String token, String password) {
     }
 
-    public record UserResponse(Long id, String name, String email) {
+    public record UserResponse(Long id, String name, String email, String role) {
     }
 }
