@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+# Maven build files
+target/
+
+# Environment files
+.env.*
+!.env.example
