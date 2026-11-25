@@ -1,26 +1,31 @@
-package com.cituccs.sims.entity;
 
+package com.cituccs.sims.entity;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 255)
     private String name;
-    @Column(nullable = false, unique = true)
+
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
-    @Column(nullable = false)
+
+    @Column(nullable = false, length = 255)
     private String password;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(20) not null default 'USER'")
+    @Column(nullable = false, length = 20)
     private Role role = Role.USER;
 
-    public User(){}
+    public User() {
+    }
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -28,7 +33,7 @@ public class User {
         this.password = password;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
@@ -43,6 +48,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -50,9 +56,16 @@ public class User {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
-    public Role getRole() { return role; }
-    public void setRole(Role role) { this.role = role; }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
