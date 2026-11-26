@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -24,18 +25,38 @@ export default function AppLayout() {
         <div className="app-navbar-brand">
           <span className="app-brand-mark">T</span> Test Account
         </div>
+
         <nav className="app-navbar-links" aria-label="Main">
           <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/items">Items</NavLink>
-          {user.role === 'ADMIN' && <NavLink to="/admin">Admin</NavLink>}
+
+          {user.role !== 'ADMIN' && (
+            <>
+              <NavLink to="/book-court">Book a Court</NavLink>
+              <NavLink to="/my-bookings">My Bookings</NavLink>
+            </>
+          )}
+
+          {user.role === 'ADMIN' && (
+            <NavLink to="/admin">Admin</NavLink>
+          )}
         </nav>
+
         <div className="app-navbar-user">
           <span className="app-user-name">{user.name}</span>
           <span className="app-role-badge">{user.role}</span>
-          <button type="button" className="app-signout" onClick={handleSignOut}>Sign out</button>
+          <button
+            type="button"
+            className="app-signout"
+            onClick={handleSignOut}
+          >
+            Sign out
+          </button>
         </div>
       </header>
+
       {error && <p className="app-error" role="alert">{error}</p>}
+
       <main className="app-content">
         <Outlet />
       </main>
