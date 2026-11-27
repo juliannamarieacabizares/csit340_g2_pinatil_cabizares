@@ -1,0 +1,97 @@
+.cs-page { display: flex; flex-direction: column; gap: 18px; }
+.cs-page.has-bar { padding-bottom: 104px; } /* room for the bottom bar, so it never covers a row */
+
+/* Heading + date */
+.cs-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.cs-header h1 { margin: 0; font-family: var(--font-head); font-weight: 800; font-size: 30px; letter-spacing: -0.5px; }
+.cs-header p { margin: 6px 0 0; color: var(--gray-600); }
+
+.cs-date { position: relative; display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }
+.cs-date button { border: 0; background: transparent; color: var(--oxford); font-family: var(--font-head); cursor: pointer; border-radius: 8px; }
+.cs-date-arrow { width: 40px; height: 40px; font-size: 22px; font-weight: 700; }
+.cs-date-arrow:hover:not(:disabled), .cs-date-label:hover { background: var(--canvas); }
+.cs-date-arrow:disabled { opacity: .3; cursor: not-allowed; }
+.cs-date-label { height: 40px; padding: 0 16px; font-weight: 700; font-size: 15px; min-width: 140px; }
+.cs-date-input { position: absolute; left: 44px; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+/* Legend */
+.cs-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; margin: 0; padding: 0; font-size: 14px; color: var(--gray-600); font-weight: 500; }
+.cs-legend li { display: flex; align-items: center; gap: 8px; }
+.sw { width: 16px; height: 16px; border-radius: 5px; border: 1px solid transparent; }
+.sw.available { background: #fff; border-color: var(--gray-300); }
+.sw.pending { background: var(--coral); }
+.sw.reserved { background: var(--marian); }
+.sw.unavailable { background: #E5E7EB; border-color: var(--gray-300); }
+.sw.selected { background: var(--pear); border-color: #9BBA00; }
+
+.cs-error { margin: 0; padding: 12px 16px; border-radius: 10px; background: #FEE2E2; color: #991B1B; }
+.cs-notice { margin: 0; padding: 12px 16px; border-radius: 10px; background: #FEF3C7; color: #92400E; font-weight: 600; }
+
+/* Schedule board */
+.cs-board { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; }
+.cs-empty { margin: 0; padding: 40px; text-align: center; color: var(--gray-600); }
+.cs-grid { min-width: 520px; padding: 6px 12px 10px; }
+.cs-row { display: grid; grid-template-columns: 84px repeat(var(--courts), minmax(110px, 1fr)); min-height: 44px; }
+
+.cs-head { min-height: 0; padding: 8px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 3px; align-items: end; }
+.cs-timehead { font-size: 14px; color: var(--gray-600); font-weight: 600; padding-left: 8px; }
+.cs-courthead { padding: 0 5px; display: flex; flex-direction: column; gap: 2px; }
+.cs-courthead strong { font-family: var(--font-head); font-size: 16px; color: var(--oxford); }
+.cs-courthead .desc { font-size: 13px; color: var(--gray-600); font-weight: 500; }
+.cs-courthead .rate { font-size: 13px; color: var(--oxford); font-weight: 700; }
+
+.cs-time { display: flex; align-items: center; padding-left: 8px; font-weight: 700; font-size: 14px; color: var(--oxford); }
+
+/* Cells: the wrapper holds the spacing so selected hours can join together */
+.cs-cell-wrap { display: flex; padding: 3px 5px; }
+.cs-cell-wrap.join-up { padding-top: 0; }
+.cs-cell-wrap.join-down { padding-bottom: 0; }
+
+.cs-cell { flex: 1; min-height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid transparent; font-family: var(--font-body); font-weight: 600; font-size: 13.5px; }
+.cs-cell.available { background: #fff; color: var(--oxford); border-color: var(--gray-300); cursor: pointer; transition: border-color .12s, box-shadow .12s; }
+.cs-cell.available:hover { border-color: var(--marian); box-shadow: 0 0 0 2px rgba(0, 62, 147, .15); }
+.cs-cell.pending { background: var(--coral); color: var(--oxford); }
+.cs-cell.reserved { background: var(--marian); color: #fff; }
+.cs-cell.unavailable { background: #EEF1F5; color: #94A3B8; font-weight: 500; }
+.cs-cell.selected { background: var(--pear); color: var(--oxford); border-color: #9BBA00; font-weight: 700; cursor: pointer; }
+.cs-cell:focus-visible { outline: 3px solid var(--marian); outline-offset: 2px; }
+
+.cs-cell-wrap.join-down .cs-cell.selected { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; }
+.cs-cell-wrap.join-up .cs-cell.selected { border-top-left-radius: 0; border-top-right-radius: 0; border-top-color: transparent; }
+
+/* Compact booking bar (fixed at the bottom of the screen) */
+.cs-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--card); border-top: 1px solid var(--border); box-shadow: 0 -4px 16px rgba(0, 39, 82, .08); }
+.cs-bar-inner { max-width: 1360px; margin: 0 auto; padding: 12px 40px; display: flex; align-items: center; gap: 28px; }
+.cs-bar-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.cs-bar-info strong { font-family: var(--font-head); font-size: 16px; color: var(--oxford); }
+.cs-bar-info span { font-size: 13px; color: var(--gray-600); }
+
+.cs-bar-dur { display: flex; gap: 6px; }
+.cs-bar-dur button { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--gray-300); background: #fff; color: var(--oxford); font-family: var(--font-head); font-weight: 700; font-size: 13px; cursor: pointer; }
+.cs-bar-dur button.on { background: var(--pear); border-color: #9BBA00; }
+.cs-bar-dur button:disabled { opacity: .4; cursor: not-allowed; }
+
+.cs-bar-fee { display: flex; flex-direction: column; align-items: flex-end; }
+.cs-bar-fee small { font-size: 12px; color: var(--gray-600); font-weight: 600; }
+.cs-bar-fee strong { font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--oxford); }
+
+.cs-bar-actions { display: flex; align-items: center; gap: 10px; }
+.cs-clear { border: 0; background: transparent; color: var(--gray-600); font-family: var(--font-body); font-weight: 600; font-size: 13px; cursor: pointer; padding: 8px; }
+.cs-clear:hover { color: var(--oxford); text-decoration: underline; }
+.cs-continue { background: var(--oxford); color: #fff; border: 0; border-radius: 10px; padding: 12px 20px; font-family: var(--font-head); font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; transition: background .12s; }
+.cs-continue:hover { background: var(--marian); }
+
+@media (max-width: 900px) {
+  .cs-bar-inner { flex-wrap: wrap; gap: 10px 16px; padding: 10px 16px; }
+  .cs-bar-info { flex: 1 1 100%; }
+  .cs-bar-dur { order: 2; }
+  .cs-bar-fee { order: 3; align-items: flex-start; margin-right: auto; }
+  .cs-bar-actions { order: 4; flex: 1 1 100%; }
+  .cs-continue { flex: 1; }
+  .cs-page.has-bar { padding-bottom: 180px; }
+}
+
+@media (max-width: 720px) {
+  .cs-header h1 { font-size: 26px; }
+  .cs-row { grid-template-columns: 72px repeat(var(--courts), minmax(100px, 1fr)); }
+}

@@ -1,10 +1,10 @@
-
 package com.cituccs.sims.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "bookings")
@@ -26,6 +26,8 @@ public class Booking {
     @JoinColumn(name = "court_id", nullable = false)
     private Court court;
 
+    // The FIRST hourly slot of the booking. For 2 or 3 hour bookings,
+    // the full range is stored in startTime / endTime / hours below.
     @ManyToOne
     @JoinColumn(name = "slot_id", nullable = false)
     private TimeSlot timeSlot;
@@ -37,8 +39,22 @@ public class Booking {
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
 
+    // NEW (nullable so older rows stay valid): the whole booked range.
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
+    @Column(name = "end_time")
+    private LocalTime endTime;
+
+    @Column(name = "hours")
+    private Integer hours;
+
     @Column(name = "booking_status", nullable = false, length = 20)
     private String bookingStatus = "PENDING";
+
+    // NEW: a PENDING booking holds the court until this time (30 minutes).
+    @Column(name = "expires_at")
+    private LocalDateTime expiresAt;
 
     @Column(name = "court_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal courtAmount = BigDecimal.ZERO;
@@ -103,11 +119,11 @@ public class Booking {
     }
 
     public CancellationPolicy getCancellationPolicy() {
-    return cancellationPolicy;
+        return cancellationPolicy;
     }
 
     public void setCancellationPolicy(CancellationPolicy cancellationPolicy) {
-    this.cancellationPolicy = cancellationPolicy;
+        this.cancellationPolicy = cancellationPolicy;
     }
 
     public LocalDate getBookingDate() {
@@ -118,12 +134,44 @@ public class Booking {
         this.bookingDate = bookingDate;
     }
 
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
+
     public String getBookingStatus() {
         return bookingStatus;
     }
 
     public void setBookingStatus(String bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
     }
 
     public BigDecimal getCourtAmount() {

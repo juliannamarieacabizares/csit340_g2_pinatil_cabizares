@@ -1,14 +1,18 @@
 import { Navigate, Route, Routes, useSearchParams } from 'react-router-dom';
 import AppLayout from './components/AppLayout';
+import PlayerLayout from './components/PlayerLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicLayout from './components/PublicLayout';
 import PublicOnlyRoute from './components/PublicOnlyRoute';
 import AdminPage from './pages/AdminPage';
+import BookingDetailsPage from './pages/BookingDetailsPage';
+import CourtSchedulePage from './pages/CourtSchedulePage';
 import DashboardPage from './pages/DashboardPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ItemsPage from './pages/ItemsPage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
+import PaymentPage from './pages/PaymentPage';
 import RegisterPage from './pages/RegisterPage';
 import './App.css';
 
@@ -52,6 +56,13 @@ function App() {
           <Route element={<ProtectedRoute roles={['ADMIN']} />}>
             <Route path="/admin" element={<AdminPage />} />
           </Route>
+        </Route>
+
+        {/* Player pages (shared navbar) */}
+        <Route element={<PlayerLayout />}>
+          <Route path="/schedule" element={<CourtSchedulePage />} />
+          <Route path="/booking" element={<BookingDetailsPage />} />
+          <Route path="/payment/:bookingId" element={<PaymentPage />} />
         </Route>
       </Route>
     </Routes>
