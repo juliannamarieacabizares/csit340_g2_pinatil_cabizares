@@ -11,6 +11,20 @@
   color-scheme: light;
 }
 
+:root {
+  --oxford: #002752;
+  --marian: #003E93;
+  --pear: #BFE800;
+  --coral: #FF8D6D;
+  --gray-300: #CBD5E1;
+  --gray-600: #475569;
+  --canvas: #F3F5F7;
+  --card: #FFFFFF;
+  --border: #E2E8F0;
+  --font-head: 'Sora', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
 body {
   margin: 0;
   min-width: 320px;
