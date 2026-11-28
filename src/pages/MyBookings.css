@@ -1,0 +1,186 @@
+
+.my-booking-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}
+
+.my-cancel-button {
+  padding: 0.7rem 1.1rem;
+  border: 1px solid #b3261e;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #b3261e;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.my-cancel-button:hover {
+  background: #fdebea;
+}
+
+.my-cancellation-info {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #e1e6e4;
+  border-radius: 0.5rem;
+  background: #f8faf9;
+}
+
+.my-cancellation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.my-cancellation-header > strong {
+  color: #1c2321;
+}
+
+.my-cancellation-info p {
+  margin: 0.5rem 0;
+  color: #64716c;
+  font-size: 0.9rem;
+}
+
+.my-cancellation-info p strong {
+  color: #1c2321;
+}
+
+.my-cancellation-status {
+  padding: 0.35rem 0.7rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.my-cancellation-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.my-cancellation-status.approved {
+  background: #e4f1ec;
+  color: #176247;
+}
+
+.my-cancellation-status.rejected {
+  background: #fdebea;
+  color: #b3261e;
+}
+
+.my-bookings-message.success {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background: #e4f1ec;
+  color: #176247;
+}
+
+.my-cancellation-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.my-cancellation-form {
+  width: 100%;
+  max-width: 450px;
+  padding: 1.75rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.my-cancellation-form h2 {
+  margin-top: 0;
+  color: #1c2321;
+}
+
+.my-cancellation-form p {
+  color: #64716c;
+}
+
+.my-cancellation-form label {
+  display: block;
+  margin: 1.25rem 0 0.5rem;
+  color: #1c2321;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.my-cancellation-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1px solid #cbd5d1;
+  border-radius: 0.5rem;
+  font: inherit;
+  resize: vertical;
+}
+
+.my-cancellation-form textarea:focus {
+  outline: 2px solid #1f7a5a;
+  border-color: #1f7a5a;
+}
+
+.my-cancellation-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.my-cancel-close-button,
+.my-cancel-submit-button {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.my-cancel-close-button {
+  background: #e9eeeb;
+  color: #1c2321;
+}
+
+.my-cancel-submit-button {
+  background: #1f7a5a;
+  color: #ffffff;
+}
+
+.my-cancel-submit-button:hover {
+  background: #176247;
+}
+
+.my-cancel-submit-button:disabled,
+.my-cancel-close-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .my-cancellation-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .my-cancellation-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .my-cancel-close-button,
+  .my-cancel-submit-button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,209 @@
+
+.admin-page {
+  width: 100%;
+}
+
+.admin-page > h1 {
+  margin-bottom: 0.4rem;
+  color: #1c2321;
+}
+
+.admin-page > p {
+  color: #64716c;
+}
+
+.admin-cancellations {
+  margin-top: 2rem;
+}
+
+.admin-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-section-heading h2 {
+  margin-bottom: 0.4rem;
+  color: #1c2321;
+}
+
+.admin-section-heading p {
+  margin-top: 0;
+  color: #64716c;
+}
+
+.admin-pending-count {
+  padding: 0.45rem 0.8rem;
+  border-radius: 2rem;
+  background: #fff3cd;
+  color: #856404;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-cancellation-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-cancellation-card {
+  padding: 1.5rem;
+  border: 1px solid #e1e6e4;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+.admin-cancellation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e1e6e4;
+}
+
+.admin-cancellation-header > div > span,
+.admin-cancellation-details > div > span,
+.admin-cancellation-reason > span {
+  color: #64716c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.admin-cancellation-header h3 {
+  margin: 0.4rem 0 0;
+  color: #1c2321;
+  font-size: 1.1rem;
+}
+
+.admin-pending-status {
+  padding: 0.4rem 0.75rem;
+  border-radius: 2rem;
+  background: #fff3cd;
+  color: #856404;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.admin-cancellation-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+}
+
+.admin-cancellation-details > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.admin-cancellation-details strong {
+  color: #1c2321;
+  font-size: 0.9rem;
+}
+
+.admin-cancellation-reason {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #f8faf9;
+}
+
+.admin-cancellation-reason p {
+  margin-bottom: 0;
+  color: #1c2321;
+  line-height: 1.5;
+}
+
+.admin-cancellation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.admin-approve-button,
+.admin-reject-button {
+  min-width: 100px;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-approve-button {
+  background: #1f7a5a;
+  color: #ffffff;
+}
+
+.admin-approve-button:hover {
+  background: #176247;
+}
+
+.admin-reject-button {
+  background: #fdebea;
+  color: #b3261e;
+}
+
+.admin-reject-button:hover {
+  background: #f8d7d5;
+}
+
+.admin-approve-button:disabled,
+.admin-reject-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-empty {
+  padding: 3rem 1.5rem;
+  border: 1px solid #e1e6e4;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  text-align: center;
+}
+
+.admin-empty h3 {
+  color: #1c2321;
+}
+
+.admin-empty p {
+  color: #64716c;
+}
+
+.admin-success {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #e4f1ec;
+  color: #176247;
+}
+
+@media (max-width: 650px) {
+  .admin-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-cancellation-header {
+    flex-direction: column;
+  }
+
+  .admin-cancellation-details {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-cancellation-actions {
+    flex-direction: column-reverse;
+  }
+
+  .admin-approve-button,
+  .admin-reject-button {
+    width: 100%;
+  }
+}

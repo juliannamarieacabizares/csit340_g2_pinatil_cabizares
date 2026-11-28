@@ -11,6 +11,7 @@ import DashboardPage from './pages/DashboardPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ItemsPage from './pages/ItemsPage';
 import LoginPage from './pages/LoginPage';
+import MyBookings from './pages/MyBookings';
 import NotFoundPage from './pages/NotFoundPage';
 import PaymentPage from './pages/PaymentPage';
 import RegisterPage from './pages/RegisterPage';
@@ -52,6 +53,11 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/items" element={<ItemsPage />} />
 
+          {/* The old single-slot booking page is retired: Court Schedule (below)
+              replaces it with multi-hour, multi-court, gear-aware booking.
+              Anyone with the old link is sent to the new flow instead. */}
+          <Route path="/book-court" element={<Navigate to="/schedule" replace />} />
+
           {/* Only for admins */}
           <Route element={<ProtectedRoute roles={['ADMIN']} />}>
             <Route path="/admin" element={<AdminPage />} />
@@ -63,6 +69,7 @@ function App() {
           <Route path="/schedule" element={<CourtSchedulePage />} />
           <Route path="/booking" element={<BookingDetailsPage />} />
           <Route path="/payment/:bookingId" element={<PaymentPage />} />
+          <Route path="/my-bookings" element={<MyBookings />} />
         </Route>
       </Route>
     </Routes>

@@ -1,5 +1,7 @@
-const apiBaseUrl = import.meta.env.VITE_API_URL
-  || `${window.location.protocol}//${window.location.hostname}:8080`;
+
+const apiBaseUrl =
+  import.meta.env.VITE_API_URL ||
+  `http://${window.location.hostname}:8080`;
 
 async function request(path, options = {}) {
   const response = await fetch(`${apiBaseUrl}${path}`, {
@@ -11,19 +13,26 @@ async function request(path, options = {}) {
     },
   });
 
-  if (response.status === 204) return null;
+  const contentType = response.headers.get('content-type');
+  const data = contentType?.includes('application/json')
+    ? await response.json()
+    : await response.text();
 
-  const body = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(body.detail || body.message || 'The request could not be completed.');
+    throw new Error(
+      typeof data === 'string'
+        ? data || 'Request failed.'
+        : data.message || data.error || 'Request failed.'
+    );
   }
-  return body;
+
+  return data;
 }
 
-export function registerAccount(formData) {
+export function registerAccount(accountData) {
   return request('/api/users/register', {
     method: 'POST',
-    body: JSON.stringify(formData),
+    body: JSON.stringify(accountData),
   });
 }
 
@@ -39,7 +48,9 @@ export function getCurrentUser() {
 }
 
 export function logout() {
-  return request('/api/auth/logout', { method: 'POST' });
+  return request('/api/auth/logout', {
+    method: 'POST',
+  });
 }
 
 export function requestPasswordReset(email) {
@@ -49,10 +60,10 @@ export function requestPasswordReset(email) {
   });
 }
 
-export function completePasswordReset(token, password) {
+export function completePasswordReset(token, newPassword) {
   return request('/api/auth/password-reset/complete', {
     method: 'POST',
-    body: JSON.stringify({ token, password }),
+    body: JSON.stringify({ token, newPassword }),
   });
 }
 
@@ -60,16 +71,84 @@ export function adminPing() {
   return request('/api/admin/ping');
 }
 
-export function listItems({ search = '', page = 0, size = 5 } = {}) {
-  const params = new URLSearchParams({ search, page, size });
-  return request(`/api/items?${params}`);
+export function listItems(search = '', page = 0, size = 10) {
+  const params = new URLSearchParams({
+    search,
+    page: String(page),
+    size: String(size),
+  });
+
+  return request(`/api/items?${params.toString()}`);
 }
-export function createItem(item) {
-  return request('/api/items', { method: 'POST', body: JSON.stringify(item) });
+
+export function createItem(itemData) {
+  return request('/api/items', {
+    method: 'POST',
+    body: JSON.stringify(itemData),
+  });
 }
-export function updateItem(id, item) {
-  return request(`/api/items/${id}`, { method: 'PUT', body: JSON.stringify(item) });
+
+export function updateItem(itemId, itemData) {
+  return request(`/api/items/${itemId}`, {
+    method: 'PUT',
+    body: JSON.stringify(itemData),
+  });
 }
-export function deleteItem(id) {
-  return request(`/api/items/${id}`, { method: 'DELETE' });
+
+export function deleteItem(itemId) {
+  return request(`/api/items/${itemId}`, {
+    method: 'DELETE',
+  });
+}
+
+export function getActiveCourt() {
+  return request('/api/bookings/court');
+}
+
+export function getBookingTimeSlots() {
+  return request('/api/bookings/time-slots');
+}
+
+export function getBookingAvailability(date) {
+  return request(
+    `/api/bookings/availability?date=${encodeURIComponent(date)}`
+  );
+}
+
+export function createBooking(bookingData) {
+  return request('/api/bookings', {
+    method: 'POST',
+    body: JSON.stringify(bookingData),
+  });
+}
+
+export function getMyBookings() {
+  return request('/api/bookings/my-bookings');
+}
+
+export function requestBookingCancellation(bookingId, reason) {
+  return request(`/api/bookings/${bookingId}/cancellation`, {
+    method: 'POST',
+    body: JSON.stringify({ reason }),
+  });
+}
+
+export function getMyCancellations() {
+  return request('/api/bookings/my-cancellations');
+}
+
+export function getPendingCancellations() {
+  return request('/api/admin/cancellations/pending');
+}
+
+export function approveCancellation(cancellationId) {
+  return request(`/api/admin/cancellations/${cancellationId}/approve`, {
+    method: 'PUT',
+  });
+}
+
+export function rejectCancellation(cancellationId) {
+  return request(`/api/admin/cancellations/${cancellationId}/reject`, {
+    method: 'PUT',
+  });
 }

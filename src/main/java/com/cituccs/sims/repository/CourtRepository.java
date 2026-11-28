@@ -8,10 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CourtRepository extends JpaRepository<Court, Long> {
+
+    List<Court> findByCourtStatusIgnoreCase(String courtStatus);
 
     // Locks the court row while a booking is being created, so two players
     // cannot book the same court and hour at the same moment.

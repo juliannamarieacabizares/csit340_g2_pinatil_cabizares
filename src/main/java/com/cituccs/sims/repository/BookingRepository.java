@@ -19,6 +19,20 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     boolean existsByBookingReference(String bookingReference);
 
+    boolean existsByCourt_CourtIdAndTimeSlot_SlotIdAndBookingDateAndBookingStatusIn(
+            Long courtId,
+            Long slotId,
+            LocalDate bookingDate,
+            java.util.Collection<String> bookingStatuses
+    );
+
+    List<Booking> findByUser_IdOrderByCreatedAtDesc(Long userId);
+
+    Optional<Booking> findByBookingIdAndUser_Id(
+            Long bookingId,
+            Long userId
+    );
+
     // Locks one booking while a payment reference is being submitted,
     // so a double click cannot create two payments.
     @Lock(LockModeType.PESSIMISTIC_WRITE)
